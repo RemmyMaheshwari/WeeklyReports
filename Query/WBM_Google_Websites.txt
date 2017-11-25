@@ -1,0 +1,21 @@
+SELECT
+	R.hostname,
+	count(R.id) num_unauthorized,
+	if (R.classification = 'U', 'U', 'N') as enforceable,
+    mins.min_date,
+    IF(WEEK(mins.min_date) = 0, 1, WEEK(mins.min_date)),
+	R.search_date,
+	R.search_date_year,
+	R.search_date_week_of_year
+FROM search_results R
+join 
+(
+	select hostname, min(first_unauthorized_search_date) min_date
+    FROM hostname_mappings
+	group by hostname
+) mins on mins.hostname = R.hostname
+WHERE search_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK)) +1 DAY)
+and search_date <= DATE_SUB(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK)) -5 DAY)
+AND R.page_number <=1 AND portal='Google'
+and (R.classification = 'U' OR reason_code = 600)
+GROUP BY R.search_date, R.hostname ORDER BY R.search_date limit 5000000;

@@ -1,0 +1,6 @@
+SELECT R.portal AS 'Portal',max(R.search_date_week_of_year)
+FROM result_metrics R
+WHERE 
+ R.search_date > '2017-07-15' 
+and
+R.search_date_year = 2017 group by portal;

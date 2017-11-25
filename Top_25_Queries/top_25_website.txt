@@ -1,0 +1,103 @@
+( 
+
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({0} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({0} - 0 <= 0, 52 + ({0} - 0), {0} - 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({0} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({0} - 0 <= 0, 52 + ({0} - 0), {0} - 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {0} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {0} WEEK)) -5 DAY)
+AND page_numbers is null {8} {9}
+group by hostname,search_date_week_of_year
+having sum(num_unauthorized) > 0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,hostname asc limit 25
+)union
+
+(
+
+
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({1} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({1} - 0 <= 0, 52 + ({1} - 0), {1} - 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({1} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({1} - 0 <= 0, 52 + ({1} - 0), {1} - 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {1} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {1} WEEK)) -5 DAY)
+AND page_numbers is null {8} {9}
+group by hostname,search_date_week_of_year
+having sum(num_unauthorized) > 0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,hostname asc limit 25
+)union
+
+(
+
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({2} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({2} - 0 <= 0, 52 + ({2} - 0), {2} - 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({2} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({2} - 0 <= 0, 52 + ({2} - 0), {2} - 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {2} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {2} WEEK)) -5 DAY)
+AND page_numbers is null {8} {9}
+group by hostname,search_date_week_of_year
+having sum(num_unauthorized) > 0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,hostname asc limit 25
+
+
+
+)union
+
+(
+
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({3} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({3} - 0 <= 0, 52 + ({3} - 0), {3} - 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({3} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({3} - 0 <= 0, 52 + ({3} - 0), {3} - 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {3} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {3} WEEK)) -5 DAY)
+AND page_numbers is null {8} {9}
+group by hostname,search_date_week_of_year
+having sum(num_unauthorized) > 0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,hostname asc limit 25
+
+
+)union
+
+(
+
+
+
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({4} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({4} - 0 <= 0, 52 + ({4} - 0), {4} - 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({4} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({4} - 0 <= 0, 52 + ({4} - 0), {4} - 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {4} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {4} WEEK)) -5 DAY)
+AND page_numbers is null {8} {9}
+group by hostname,search_date_week_of_year
+having sum(num_unauthorized) > 0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,hostname asc limit 25
+
+
+
+
+)union
+
+(
+
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({5} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({5} - 0 <= 0, 52 + ({5} - 0), {5} - 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({5} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({5} - 0 <= 0, 52 + ({5} - 0), {5} - 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {5} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {5} WEEK)) -5 DAY)
+AND page_numbers is null {8} {9}
+group by hostname,search_date_week_of_year
+having sum(num_unauthorized) > 0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,hostname asc limit 25
+
+
+)union
+
+(
+
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({6} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({6} - 0 <= 0, 52 + ({6} - 0), {6} - 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({6} - 0 <= 0, {7} - 1, {7}), 1), INTERVAL IF({6} - 0 <= 0, 52 + ({6} - 0), {6} - 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {6} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {6} WEEK)) -5 DAY)
+AND page_numbers is null {8} {9}
+group by hostname,search_date_week_of_year
+having sum(num_unauthorized) > 0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,hostname asc limit 25)

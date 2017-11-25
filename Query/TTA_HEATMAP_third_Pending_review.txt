@@ -1,0 +1,23 @@
+select 'audit', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_marketly_audit_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY)
+union
+select 'wbm', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_wbm_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY)
+union
+select 'paramount', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_paramount_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY)
+union
+select 'stx_entertainment', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_stx_entertainment_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY)
+union
+select 'disney_marketly', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_disney_marketly_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY)
+union
+select 'fox', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_fox_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY)
+union
+select 'sony', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_sony_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY)
+union
+select 'pearson', Week('2017-07-02') as Week, count(*) as 'Webpages Pending Review'
+from scrubmtd_pearson_production.infringements where notice_id = 0 AND reviewed_at is null and excluded_at is null and updated_at < DATE_SUB(current_timestamp, INTERVAL 1 DAY);

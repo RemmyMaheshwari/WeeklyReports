@@ -1,0 +1,28 @@
+select portal AS 'Portal', 
+		region AS 'User Region', 
+		search_date AS 'Search Date', 
+		search_date_year AS 'Year',
+		search_date_week_of_year AS 'Week Of Year', 
+		keyword AS 'Keyword', 
+		ip_owner AS 'IP Owner', 
+		product AS 'Product',    
+		1 AS 'Page Number',
+		IF(is_dirty, "Dirty", "Clean") AS 'Status',
+		min_authorized_position AS 'Min Position Authorized',
+		min_unauthorized_position AS 'Min Position Unauthorized',
+		num_authorized AS 'Num Authorized',
+		num_unauthorized AS 'Num Unauthorized',
+		num_results as 'Num Results',
+		null AS '% Unauthorized',
+		null AS 'Avg Age Unauthorized (days)',
+		keyword_template AS 'Keyword Template',
+		min_unauthorized_position - min_authorized_position AS 'Position Gap',
+		traffic_share as 'Traffic Share',
+		unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+		authorized_traffic_share  AS 'Authorized Traffic Share',
+		used_historical_traffic_data as 'Used Historical Data'
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF(46 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(46 - 7 <= 0, 52 + (46 - 7), 46 - 7) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF(46 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(46 - 7 <= 0, 52 + (46 - 7), 46 - 7) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 46 WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 46 WEEK)) -5 DAY)
+AND portal = 'Google' and  page_numbers is null
+limit 500000000;

@@ -1,0 +1,32 @@
+SELECT R.portal AS 'Portal',
+		R.region AS 'User Region',
+		R.search_date AS 'Search Date',
+		R.search_date_year AS 'Year',
+		R.search_date_week_of_year AS 'Week Of Year',
+		R.keyword AS 'Keyword',
+		R.ip_owner AS 'IP Owner',
+		R.product AS 'Product',
+		R.page_number AS 'Page Number',
+		IF(SUM(CASE WHEN R.classification = 'U' THEN 1 ELSE 0 END) > 0, "Dirty", "Clean") AS 'Status',
+		IF(SUM(CASE WHEN R.classification = 'U' THEN 1 ELSE 0 END) > 0, "Dirty", IF(SUM(CASE WHEN R.reason_code = 600 THEN 1 ELSE 0 END) > 0, "Not Enforceable", "Clean")) AS 'Status',
+		MIN(CASE WHEN R.classification = 'A' THEN R.position ELSE 11 END) AS 'Min Position Authorized',
+		MIN(CASE WHEN R.classification = 'U' THEN R.position ELSE 11 END) AS 'Min Position Unauthorized',
+		MIN(CASE WHEN R.reason_code = 600 THEN R.position ELSE 11 END) AS 'Min Position Not Enforceable',
+		COUNT(CASE WHEN R.classification = 'A' THEN R.id ELSE null END) AS 'Num Authorized',
+		COUNT(CASE WHEN R.classification = 'U' THEN R.id ELSE null END) AS 'Num Unauthorized',
+		COUNT(CASE WHEN (R.classification = 'U' OR R.reason_code = 600) THEN R.id ELSE null END) AS 'Num Unauthorized or Not Enforceable',
+		COUNT(R.id) as 'Num Results',
+		COUNT(CASE WHEN R.classification = 'U' THEN R.id ELSE null END) / COUNT(R.id) AS '% Unauthorized',
+		null AS 'Avg Age Unauthorized (days)',
+		REPLACE(R.keyword, R.product, "[TITLE]") AS 'Keyword Template',
+		MIN(CASE WHEN R.classification = 'U' THEN R.position ELSE 11 END) - MIN(CASE WHEN R.classification = 'A' THEN R.position ELSE 11 END) AS 'Position Gap',
+		SUM(R.est_daily_traffic_position) as 'Traffic Share',
+		SUM(CASE WHEN R.classification = 'U' THEN R.est_daily_traffic_position ELSE 0 END)  AS 'Unauthorized Traffic Share',
+		SUM(CASE WHEN R.classification = 'A' THEN R.est_daily_traffic_position ELSE 0 END)  AS 'Authorized Traffic Share',
+		SUM(CASE WHEN R.reason_code = 600 THEN R.est_daily_traffic_position ELSE 0 END)  AS 'Not Enforceable Traffic Share',
+		IF(SUM(CASE WHEN R.used_historical_traffic_data THEN 1 ELSE 0 END) > 0, true, false) as 'Used Historical Data'
+FROM search_results R
+WHERE search_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK)) +1 DAY)
+and search_date <= DATE_SUB(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK)) -5 DAY)
+AND R.page_number <= 1 and R.portal='Bing'
+GROUP BY R.portal, R.region, R.search_date, R.keyword, R.product limit 599999;

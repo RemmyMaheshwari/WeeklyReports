@@ -1,0 +1,207 @@
+SELECT
+  'TD' as 'System', 
+  'wbm' as 'Company',
+  YEAR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Year', 
+  MONTH(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Month', 
+  IF(WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) = 0, 52, WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Week', 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Date', 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Hour', 
+  MIN(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'SentAt', 
+  N.sent_by AS 'By',
+  COUNT(DISTINCT N.id) AS 'Notices',
+  COUNT(DISTINCT I.id) AS 'Infringements',
+  DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Day',
+  CONCAT(DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), "-", HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Slot',
+  MIN(CONVERT_TZ(I.created_at, '-0:00','-7:00')) AS 'Oldest',
+  HOUR(TIMEDIFF(N.sent_at, MIN(I.created_at))) AS 'TTA',
+  GROUP_CONCAT(DISTINCT N.id SEPARATOR ';') AS `NoticeIDs`,
+  (SELECT I2.url FROM scrubmtd_wbm_production.infringements I2
+	JOIN scrubmtd_wbm_production.notices N2 ON N2.id = I2.notice_id WHERE I2.created_at = MIN(I.created_at) AND N2.sent_by = N.sent_by LIMIT 1) AS 'Oldest URL'
+FROM scrubmtd_wbm_production.notices N
+  JOIN scrubmtd_wbm_production.infringements I ON N.id = I.notice_id
+WHERE N.`status`IN ('C', 'S')
+GROUP BY 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  I.company_name,
+  N.sent_by
+
+UNION
+
+SELECT
+  'TD' as 'System', 
+  'disney_marketly' as 'Company',
+  YEAR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Year', 
+  MONTH(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Month', 
+  IF(WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) = 0, 52, WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Week', 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Date', 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Hour', 
+  MIN(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'SentAt', 
+  N.sent_by AS 'By',
+  COUNT(DISTINCT N.id) AS 'Notices',
+  COUNT(DISTINCT I.id) AS 'Infringements',
+  DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Day',
+  CONCAT(DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), "-", HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Slot',
+  MIN(CONVERT_TZ(I.created_at, '-0:00','-7:00')) AS 'Oldest',
+  HOUR(TIMEDIFF(N.sent_at, MIN(I.created_at))) AS 'TTA',
+  GROUP_CONCAT(DISTINCT N.id SEPARATOR ';') AS `NoticeIDs`,
+  (SELECT I2.url FROM scrubmtd_disney_marketly_production.infringements I2
+	JOIN scrubmtd_disney_marketly_production.notices N2 ON N2.id = I2.notice_id WHERE I2.created_at = MIN(I.created_at) AND N2.sent_by = N.sent_by LIMIT 1) AS 'Oldest URL'
+FROM scrubmtd_disney_marketly_production.notices N
+  JOIN scrubmtd_disney_marketly_production.infringements I ON N.id = I.notice_id
+WHERE N.`status`IN ('C', 'S')
+GROUP BY 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  I.company_name,
+  N.sent_by
+
+UNION
+
+SELECT
+  'TD' as 'System', 
+  'paramount' as 'Company',
+  YEAR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Year', 
+  MONTH(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Month', 
+  IF(WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) = 0, 52, WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Week', 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Date', 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Hour', 
+  MIN(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'SentAt', 
+  N.sent_by AS 'By',
+  COUNT(DISTINCT N.id) AS 'Notices',
+  COUNT(DISTINCT I.id) AS 'Infringements',
+  DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Day',
+  CONCAT(DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), "-", HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Slot',
+  MIN(CONVERT_TZ(I.created_at, '-0:00','-7:00')) AS 'Oldest',
+  HOUR(TIMEDIFF(N.sent_at, MIN(I.created_at))) AS 'TTA',
+  GROUP_CONCAT(DISTINCT N.id SEPARATOR ';') AS `NoticeIDs`,
+  (SELECT I2.url FROM scrubmtd_paramount_production.infringements I2
+	JOIN scrubmtd_paramount_production.notices N2 ON N2.id = I2.notice_id WHERE I2.created_at = MIN(I.created_at) AND N2.sent_by = N.sent_by LIMIT 1) AS 'Oldest URL'
+FROM scrubmtd_paramount_production.notices N
+  JOIN scrubmtd_paramount_production.infringements I ON N.id = I.notice_id
+WHERE N.`status`IN ('C', 'S')
+GROUP BY 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  I.company_name,
+  N.sent_by
+
+UNION
+
+SELECT
+  'TD' as 'System', 
+  'stx_entertainment' as 'Company',
+  YEAR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Year', 
+  MONTH(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Month', 
+  IF(WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) = 0, 52, WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Week', 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Date', 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Hour', 
+  MIN(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'SentAt', 
+  N.sent_by AS 'By',
+  COUNT(DISTINCT N.id) AS 'Notices',
+  COUNT(DISTINCT I.id) AS 'Infringements',
+  DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Day',
+  CONCAT(DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), "-", HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Slot',
+  MIN(CONVERT_TZ(I.created_at, '-0:00','-7:00')) AS 'Oldest',
+  HOUR(TIMEDIFF(N.sent_at, MIN(I.created_at))) AS 'TTA',
+  GROUP_CONCAT(DISTINCT N.id SEPARATOR ';') AS `NoticeIDs`,
+  (SELECT I2.url FROM scrubmtd_stx_entertainment_production.infringements I2
+	JOIN scrubmtd_stx_entertainment_production.notices N2 ON N2.id = I2.notice_id WHERE I2.created_at = MIN(I.created_at) AND N2.sent_by = N.sent_by LIMIT 1) AS 'Oldest URL'
+FROM scrubmtd_stx_entertainment_production.notices N
+  JOIN scrubmtd_stx_entertainment_production.infringements I ON N.id = I.notice_id
+WHERE N.`status`IN ('C', 'S')
+GROUP BY 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  I.company_name,
+  N.sent_by
+  
+UNION
+
+SELECT
+  'TD' as 'System', 
+  'sony' as 'Company',
+  YEAR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Year', 
+  MONTH(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Month', 
+  IF(WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) = 0, 52, WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Week', 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Date', 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Hour', 
+  MIN(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'SentAt', 
+  N.sent_by AS 'By',
+  COUNT(DISTINCT N.id) AS 'Notices',
+  COUNT(DISTINCT I.id) AS 'Infringements',
+  DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Day',
+  CONCAT(DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), "-", HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Slot',
+  MIN(CONVERT_TZ(I.created_at, '-0:00','-7:00')) AS 'Oldest',
+  HOUR(TIMEDIFF(N.sent_at, MIN(I.created_at))) AS 'TTA',
+  GROUP_CONCAT(DISTINCT N.id SEPARATOR ';') AS `NoticeIDs`,
+  (SELECT I2.url FROM scrubmtd_sony_production.infringements I2
+	JOIN scrubmtd_sony_production.notices N2 ON N2.id = I2.notice_id WHERE I2.created_at = MIN(I.created_at) AND N2.sent_by = N.sent_by LIMIT 1) AS 'Oldest URL'
+FROM scrubmtd_sony_production.notices N
+  JOIN scrubmtd_sony_production.infringements I ON N.id = I.notice_id
+WHERE N.`status`IN ('C', 'S')
+GROUP BY 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  I.company_name,
+  N.sent_by
+  
+UNION
+
+SELECT
+  'Audit' as 'System', 
+  I.company_name as 'Company',
+  YEAR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Year', 
+  MONTH(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Month', 
+  IF(WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) = 0, 52, WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Week',
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Date', 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Hour', 
+  MIN(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'SentAt', 
+  N.sent_by AS 'By',
+  COUNT(DISTINCT N.id) AS 'Notices',
+  COUNT(DISTINCT I.id) AS 'Infringements',
+  DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Day',
+  CONCAT(DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), "-", HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Slot',
+  MIN(CONVERT_TZ(I.created_at, '-0:00','-7:00')) AS 'Oldest',
+  HOUR(TIMEDIFF(N.sent_at, MIN(I.created_at))) AS 'TTA',
+  GROUP_CONCAT(DISTINCT N.id SEPARATOR ';') AS `NoticeIDs`,
+  (SELECT I2.url FROM scrubmtd_marketly_audit_production.infringements I2
+	JOIN scrubmtd_marketly_audit_production.notices N2 ON N2.id = I2.notice_id WHERE I2.created_at = MIN(I.created_at) AND N2.sent_by = N.sent_by LIMIT 1) AS 'Oldest URL'
+FROM scrubmtd_marketly_audit_production.notices N
+  JOIN scrubmtd_marketly_audit_production.infringements I ON N.id = I.notice_id
+WHERE N.`status`IN ('C', 'S')
+GROUP BY 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  I.company_name,
+  N.sent_by
+  
+   union
+   
+SELECT
+  'TD' as 'System', 
+  'pearson' as 'Company',
+  YEAR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Year', 
+  MONTH(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Month', 
+  IF(WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) = 0, 52, WEEK(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Week', 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Date', 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Hour', 
+  MIN(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'SentAt', 
+  N.sent_by AS 'By',
+  COUNT(DISTINCT N.id) AS 'Notices',
+  COUNT(DISTINCT I.id) AS 'Infringements',
+  DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')) AS 'Day',
+  CONCAT(DAYNAME(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), "-", HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00'))) AS 'Slot',
+  MIN(CONVERT_TZ(I.created_at, '-0:00','-7:00')) AS 'Oldest',
+  HOUR(TIMEDIFF(N.sent_at, MIN(I.created_at))) AS 'TTA',
+  GROUP_CONCAT(DISTINCT N.id SEPARATOR ';') AS `NoticeIDs`,
+  (SELECT I2.url FROM scrubmtd_pearson_production.infringements I2
+	JOIN scrubmtd_pearson_production.notices N2 ON N2.id = I2.notice_id WHERE I2.created_at = MIN(I.created_at) AND N2.sent_by = N.sent_by LIMIT 1) AS 'Oldest URL'
+FROM scrubmtd_pearson_production.notices N
+  JOIN scrubmtd_pearson_production.infringements I ON N.id = I.notice_id
+WHERE N.`status`IN ('C', 'S')
+GROUP BY 
+  DATE(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  HOUR(CONVERT_TZ(N.sent_at, '-0:00','-7:00')), 
+  I.company_name,
+  N.sent_by

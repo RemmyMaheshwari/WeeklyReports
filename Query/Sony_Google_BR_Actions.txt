@@ -1,0 +1,15 @@
+SELECT source_portal AS 'Portal', 
+		region AS 'User Region', 
+		sent_at_date AS 'Sent Date', 
+		sent_at_year AS 'Year',
+		sent_at_week_of_year AS 'Week Of Year', 
+		num_reported AS 'Number Reported', 
+		num_removed AS 'Number Removed', 
+		total_time_to_action / num_reported AS 'Average Time to Action Minutes', 
+		total_time_to_remove / num_removed  AS 'Average Time to Remove Minutes',
+		total_time_to_action,
+		total_time_to_remove
+FROM action_metrics
+WHERE sent_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK)) +1 DAY)
+and sent_at_date <= DATE_SUB(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK)) -5 DAY)
+and recipient = 'Google' and region ='BR' and page_numbers is null limit 500000000;

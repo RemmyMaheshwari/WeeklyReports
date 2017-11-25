@@ -1,0 +1,46 @@
+SELECT
+  n.host_name,
+  num_unauthorized,
+  min_date,
+  min_week,
+  n.search_date,
+  n.search_date_year,
+  n.search_date_week_of_year
+from
+(
+SELECT R.host_name,
+		count(*) num_unauthorized,
+		R.search_date,
+		R.search_date_year,
+		R.search_date_week_of_year
+FROM search_results R
+WHERE (IF(43 - 7  <= 0, (R.search_date_week_of_year > 51 + 43 - 7  
+AND R.search_date >= '2016-01-03') 
+OR (R.search_date_week_of_year<=43 AND R.search_date_year >= 2017),
+ R.search_date_week_of_year >= 43 - 7  AND (R.search_date_week_of_year<=43 AND R.search_date_year >= 2017)))
+AND R.page_number <=3  AND R.portal = 'Bing' and R.region = 'FR'
+and (R.classification = 'U')
+GROUP BY R.host_name, search_date ORDER BY search_date desc
+) n
+join 
+(
+SELECT host_data.host_name,
+		min_data.min_date,
+		host_data.min_week
+from(
+	select R.host_name,
+			R.search_date_week_of_year min_week,
+			R.search_date
+	from search_results R
+	where (R.classification = 'U') AND R.page_number <=3  AND R.portal = 'Bing' and R.region = 'FR'
+	group by R.host_name
+	) host_data
+	join
+	(
+	select R2.host_name,
+			min(R2.search_date) min_date
+	from search_results R2 
+	where (R2.classification = 'U') AND R2.page_number <=3  AND R2.portal = 'Bing' and R2.region = 'FR'
+	group by R2.host_name
+	) min_data on min_data.host_name = host_data.host_name AND min_data.min_date = host_data.search_date
+) first_dates on first_dates.host_name = n.host_name ORDER BY n.search_date limit 599999999;

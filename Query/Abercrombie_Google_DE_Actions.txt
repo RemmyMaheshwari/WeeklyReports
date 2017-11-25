@@ -1,0 +1,25 @@
+SELECT A.portal AS 'Portal', 
+		A.region AS 'User Region',
+		A.sent_at AS 'Sent Date', 
+		A.sent_at_year AS 'Year',
+		A.sent_at_woy AS 'Week Of Year', 
+		SUM(A.num_reported) AS 'Number Reported', 
+		SUM(A.num_removed) AS 'Number Removed', 
+		AVG(A.avg_time_to_action_minutes) AS 'Average Time to Action Minutes', 
+		AVG(A.avg_time_to_remove_minutes) AS 'Average Time to Remove Minutes',
+		SUM(A.total_time_to_action_minutes),
+		SUM(A.total_time_to_remove_minutes),
+    A.page_number,
+    A.action_type
+FROM actions A
+WHERE 
+if(43 - 7 <= 0,
+ ((A.sent_at_woy > 51 + 43 - 7 )
+	AND A.sent_at >= '2016-01-03') 
+	OR (A.sent_at_woy<=43
+	AND A.sent_at_year >= 2017), 
+ (A.sent_at_woy >= 43 - 7 
+	AND A.sent_at >= '2017-01-01') 
+	AND (A.sent_at_woy<=43
+	AND A.sent_at_year >= 2017)) AND A.portal = 'Google' and A.region = 'DE'
+GROUP BY A.portal, A.region, A.sent_at, A.page_number, A.action_type limit 400000;

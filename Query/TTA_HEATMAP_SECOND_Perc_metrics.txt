@@ -1,0 +1,27 @@
+select 'wbm', IF (Week('2017-07-02') = 0, 1, Week('2017-07-02')) as Week, sum(notice_id != 0) reviewed_infringements, sum(notice_id > 0) sent_infringements, (sum(manual_review and method != 'M') + sum(!manual_review and method = 'M')) infringements_from_audit
+from scrubmtd_wbm_production.infringements
+where created_at between '2017-07-02' and '2017-07-09'
+union
+select 'disney_marketly', IF (Week('2017-07-02') = 0, 1, Week('2017-07-02')) as Week, sum(notice_id != 0) reviewed_infringements, sum(notice_id > 0) sent_infringements, (sum(manual_review and method != 'M') + sum(!manual_review and method = 'M')) infringements_from_audit
+from scrubmtd_disney_marketly_production.infringements
+where created_at between '2017-07-02' and '2017-07-09'
+union
+select 'paramount', IF (Week('2017-07-02') = 0, 1, Week('2017-07-02')) as Week, sum(notice_id != 0) reviewed_infringements, sum(notice_id > 0) sent_infringements, (sum(manual_review and method != 'M') + sum(!manual_review and method = 'M')) infringements_from_audit
+from scrubmtd_paramount_production.infringements
+where created_at between '2017-07-02' and '2017-07-09'
+union
+select 'stx_entertainment', IF (Week('2017-07-02') = 0, 1, Week('2017-07-02')) as Week, sum(notice_id != 0) reviewed_infringements, sum(notice_id > 0) sent_infringements, (sum(manual_review and method != 'M') + sum(!manual_review and method = 'M')) infringements_from_audit
+from scrubmtd_stx_entertainment_production.infringements
+where created_at between '2017-07-02' and '2017-07-09'
+union
+select 'fox', IF (Week('2017-07-02') = 0, 1, Week('2017-07-02')) as Week, sum(notice_id != 0) reviewed_infringements, sum(notice_id > 0) sent_infringements, (sum(manual_review and method != 'M') + sum(!manual_review and method = 'M')) infringements_from_audit
+from scrubmtd_fox_production.infringements
+where created_at between '2017-07-02' and '2017-07-09'
+union
+select 'sony', IF (Week('2017-07-02') = 0, 1, Week('2017-07-02')) as Week, sum(notice_id != 0) reviewed_infringements, sum(notice_id > 0) sent_infringements, (sum(manual_review and method != 'M') + sum(!manual_review and method = 'M')) infringements_from_audit
+from scrubmtd_sony_production.infringements
+where created_at between '2017-07-02' and '2017-07-09'
+union
+select 'pearson', IF (Week('2017-07-02') = 0, 1, Week('2017-07-02')) as Week, sum(notice_id != 0) reviewed_infringements, sum(notice_id > 0) sent_infringements, (sum(manual_review and method != 'M') + sum(!manual_review and method = 'M')) infringements_from_audit
+from scrubmtd_pearson_production.infringements
+where created_at between '2017-07-02' and '2017-07-09';

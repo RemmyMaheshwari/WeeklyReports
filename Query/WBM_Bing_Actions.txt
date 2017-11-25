@@ -1,0 +1,16 @@
+SELECT A.portal AS 'Portal', 
+		A.region AS 'User Region', 
+		A.sent_at AS 'Sent Date', 
+		A.sent_at_year AS 'Year',
+		A.sent_at_woy AS 'Week Of Year', 
+		SUM(A.num_reported) AS 'Number Reported', 
+		SUM(A.num_removed) AS 'Number Removed', 
+		AVG(A.avg_time_to_action_minutes) AS 'Average Time to Action Minutes', 
+		AVG(A.avg_time_to_remove_minutes) AS 'Average Time to Remove Minutes',
+		SUM(A.total_time_to_action_minutes),
+		SUM(A.total_time_to_remove_minutes)
+FROM actions A
+WHERE sent_at >= DATE_SUB(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK)) +1 DAY)
+and sent_at <= DATE_SUB(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK)) -5 DAY)
+and A.provider = 'Bing'
+GROUP BY A.portal, A.region, A.sent_at, A.product limit 400000;

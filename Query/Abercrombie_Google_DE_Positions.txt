@@ -1,0 +1,16 @@
+SELECT R.portal AS 'Portal', 
+		R.region AS 'User Region', 
+		R.search_date AS 'Search Date', 
+		R.search_date_year AS 'Year',
+		R.search_date_week_of_year AS 'Week Of Year', 
+		R.keyword AS 'Keyword', 
+		MIN(CASE WHEN R.classification = 'A' THEN R.position ELSE 31 END) AS 'Min Position Authorized',
+		MIN(CASE WHEN (R.classification = 'U') THEN R.position ELSE 31 END) AS 'Min Position Unauthorized',
+		MIN(CASE WHEN (R.classification = 'U') THEN R.position ELSE 31 END) - MIN(CASE WHEN R.classification = 'A' THEN R.position ELSE 31 END) AS 'Position Gap'
+from search_results R
+WHERE (IF(43 - 7 <= 0, (R.search_date_week_of_year > 51 + 43 - 7 
+AND R.search_date >= '2016-01-03') 
+OR (R.search_date_week_of_year<=43 AND R.search_date_year >= 2017),
+ R.search_date_week_of_year >= 43 - 7 AND (R.search_date_week_of_year<=43 AND R.search_date_year >= 2017))) 
+AND R.page_number <=3 AND R.portal = 'Google' and R.region = 'DE'
+GROUP BY R.portal, R.region, R.search_date, R.keyword limit 599999;

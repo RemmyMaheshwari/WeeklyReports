@@ -1,0 +1,238 @@
+(select 
+                 sum(num_unauthorized) AS 'Sum Of Num Unauthorized',
+                 keyword AS 'Keyword',
+                 keyword_template AS 'Keyword Template', 
+                 search_date_week_of_year AS 'Week Of Year',  
+                  portal AS 'Portal', 
+                region AS 'User Region', 
+                search_date AS 'Search Date', 
+                search_date_year AS 'Year',        
+                ip_owner AS 'IP Owner', 
+                product AS 'Product',    
+                1 AS 'Page Number',
+                IF(is_dirty, 'Dirty', 'Clean') AS 'Status',
+                min_authorized_position AS 'Min Position Authorized',
+                min_unauthorized_position AS 'Min Position Unauthorized',
+                num_authorized AS 'Num Authorized',
+                num_results as 'Num Results',
+                null AS '% Unauthorized',
+                null AS 'Avg Age Unauthorized (days)',                
+                min_unauthorized_position - min_authorized_position AS 'Position Gap',
+                traffic_share as 'Traffic Share',
+                unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+                authorized_traffic_share  AS 'Authorized Traffic Share',
+                used_historical_traffic_data as 'Used Historical Data'                
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({6} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({6} - 0<= 0, 52 + ({6}- 0), {6}- 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({6} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({6} - 0<= 0, 52 + ({6}- 0), {6}- 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {6} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {6} WEEK)) -5 DAY)
+and  page_numbers is null {8} {9}
+group by keyword_template,search_date_week_of_year
+having sum(num_unauthorized)>0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,keyword_template asc limit 25
+)
+union
+(select 
+                 sum(num_unauthorized) AS 'Sum Of Num Unauthorized',
+                 keyword AS 'Keyword',
+                 keyword_template AS 'Keyword Template', 
+                 search_date_week_of_year AS 'Week Of Year',  
+                  portal AS 'Portal', 
+                region AS 'User Region', 
+                search_date AS 'Search Date', 
+                search_date_year AS 'Year',        
+                ip_owner AS 'IP Owner', 
+                product AS 'Product',    
+                1 AS 'Page Number',
+                IF(is_dirty, 'Dirty', 'Clean') AS 'Status',
+                min_authorized_position AS 'Min Position Authorized',
+                min_unauthorized_position AS 'Min Position Unauthorized',
+                num_authorized AS 'Num Authorized',
+                num_results as 'Num Results',
+                null AS '% Unauthorized',
+                null AS 'Avg Age Unauthorized (days)',                
+                min_unauthorized_position - min_authorized_position AS 'Position Gap',
+                traffic_share as 'Traffic Share',
+                unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+                authorized_traffic_share  AS 'Authorized Traffic Share',
+                used_historical_traffic_data as 'Used Historical Data'                
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({5} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({5} - 0<= 0, 52 + ({5}- 0), {5}- 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({5} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({5} - 0<= 0, 52 + ({5}- 0), {5}- 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {5} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {5} WEEK)) -5 DAY)
+and  page_numbers is null {8} {9}
+group by keyword_template,search_date_week_of_year
+having sum(num_unauthorized)>0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,keyword_template asc limit 25
+)
+union
+
+(select 
+                 sum(num_unauthorized) AS 'Sum Of Num Unauthorized',
+                 keyword AS 'Keyword',
+                 keyword_template AS 'Keyword Template', 
+                 search_date_week_of_year AS 'Week Of Year',  
+                  portal AS 'Portal', 
+                region AS 'User Region', 
+                search_date AS 'Search Date', 
+                search_date_year AS 'Year',        
+                ip_owner AS 'IP Owner', 
+                product AS 'Product',    
+                1 AS 'Page Number',
+                IF(is_dirty, 'Dirty', 'Clean') AS 'Status',
+                min_authorized_position AS 'Min Position Authorized',
+                min_unauthorized_position AS 'Min Position Unauthorized',
+                num_authorized AS 'Num Authorized',
+                num_results as 'Num Results',
+                null AS '% Unauthorized',
+                null AS 'Avg Age Unauthorized (days)',                
+                min_unauthorized_position - min_authorized_position AS 'Position Gap',
+                traffic_share as 'Traffic Share',
+                unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+                authorized_traffic_share  AS 'Authorized Traffic Share',
+                used_historical_traffic_data as 'Used Historical Data'                
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({4} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({4} - 0<= 0, 52 + ({4}- 0), {4}- 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({4} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({4} - 0<= 0, 52 + ({4}- 0), {4}- 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {4} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {4} WEEK)) -5 DAY)
+and  page_numbers is null {8} {9}
+group by keyword_template,search_date_week_of_year
+having sum(num_unauthorized)>0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,keyword_template asc limit 25
+)
+
+union
+
+
+(select 
+                 sum(num_unauthorized) AS 'Sum Of Num Unauthorized',
+                 keyword AS 'Keyword',
+                 keyword_template AS 'Keyword Template', 
+                 search_date_week_of_year AS 'Week Of Year',  
+                  portal AS 'Portal', 
+                region AS 'User Region', 
+                search_date AS 'Search Date', 
+                search_date_year AS 'Year',        
+                ip_owner AS 'IP Owner', 
+                product AS 'Product',    
+                1 AS 'Page Number',
+                IF(is_dirty, 'Dirty', 'Clean') AS 'Status',
+                min_authorized_position AS 'Min Position Authorized',
+                min_unauthorized_position AS 'Min Position Unauthorized',
+                num_authorized AS 'Num Authorized',
+                num_results as 'Num Results',
+                null AS '% Unauthorized',
+                null AS 'Avg Age Unauthorized (days)',                
+                min_unauthorized_position - min_authorized_position AS 'Position Gap',
+                traffic_share as 'Traffic Share',
+                unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+                authorized_traffic_share  AS 'Authorized Traffic Share',
+                used_historical_traffic_data as 'Used Historical Data'                
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({3} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({3} - 0<= 0, 52 + ({3}- 0), {3}- 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({3} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({3} - 0<= 0, 52 + ({3}- 0), {3}- 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {3} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {3} WEEK)) -5 DAY)
+and  page_numbers is null {8} {9}
+group by keyword_template,search_date_week_of_year
+having sum(num_unauthorized)>0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,keyword_template asc limit 25
+)
+union
+
+
+(select 
+                 sum(num_unauthorized) AS 'Sum Of Num Unauthorized',
+                 keyword AS 'Keyword',
+                 keyword_template AS 'Keyword Template', 
+                 search_date_week_of_year AS 'Week Of Year',  
+                  portal AS 'Portal', 
+                region AS 'User Region', 
+                search_date AS 'Search Date', 
+                search_date_year AS 'Year',        
+                ip_owner AS 'IP Owner', 
+                product AS 'Product',    
+                1 AS 'Page Number',
+                IF(is_dirty, 'Dirty', 'Clean') AS 'Status',
+                min_authorized_position AS 'Min Position Authorized',
+                min_unauthorized_position AS 'Min Position Unauthorized',
+                num_authorized AS 'Num Authorized',
+                num_results as 'Num Results',
+                null AS '% Unauthorized',
+                null AS 'Avg Age Unauthorized (days)',                
+                min_unauthorized_position - min_authorized_position AS 'Position Gap',
+                traffic_share as 'Traffic Share',
+                unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+                authorized_traffic_share  AS 'Authorized Traffic Share',
+                used_historical_traffic_data as 'Used Historical Data'                
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({2} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({2} - 0<= 0, 52 + ({2}- 0), {2}- 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({2} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({2} - 0<= 0, 52 + ({2}- 0), {2}- 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {2} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {2} WEEK)) -5 DAY)
+and  page_numbers is null {8} {9}
+group by keyword_template,search_date_week_of_year
+having sum(num_unauthorized)>0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,keyword_template asc limit 25
+)
+
+union
+(select 
+                 sum(num_unauthorized) AS 'Sum Of Num Unauthorized',
+                 keyword AS 'Keyword',
+                 keyword_template AS 'Keyword Template', 
+                 search_date_week_of_year AS 'Week Of Year',  
+                  portal AS 'Portal', 
+                region AS 'User Region', 
+                search_date AS 'Search Date', 
+                search_date_year AS 'Year',        
+                ip_owner AS 'IP Owner', 
+                product AS 'Product',    
+                1 AS 'Page Number',
+                IF(is_dirty, 'Dirty', 'Clean') AS 'Status',
+                min_authorized_position AS 'Min Position Authorized',
+                min_unauthorized_position AS 'Min Position Unauthorized',
+                num_authorized AS 'Num Authorized',
+                num_results as 'Num Results',
+                null AS '% Unauthorized',
+                null AS 'Avg Age Unauthorized (days)',                
+                min_unauthorized_position - min_authorized_position AS 'Position Gap',
+                traffic_share as 'Traffic Share',
+                unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+                authorized_traffic_share  AS 'Authorized Traffic Share',
+                used_historical_traffic_data as 'Used Historical Data'                
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({1} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({1} - 0<= 0, 52 + ({1}- 0), {1}- 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({1} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({1} - 0<= 0, 52 + ({1}- 0), {1}- 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {1} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {1} WEEK)) -5 DAY)
+and  page_numbers is null {8} {9}
+group by keyword_template,search_date_week_of_year
+having sum(num_unauthorized)>0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,keyword_template asc limit 25
+)
+union
+
+(select 
+                 sum(num_unauthorized) AS 'Sum Of Num Unauthorized',
+                 keyword AS 'Keyword',
+                 keyword_template AS 'Keyword Template', 
+                 search_date_week_of_year AS 'Week Of Year',  
+                  portal AS 'Portal', 
+                region AS 'User Region', 
+                search_date AS 'Search Date', 
+                search_date_year AS 'Year',        
+                ip_owner AS 'IP Owner', 
+                product AS 'Product',    
+                1 AS 'Page Number',
+                IF(is_dirty, 'Dirty', 'Clean') AS 'Status',
+                min_authorized_position AS 'Min Position Authorized',
+                min_unauthorized_position AS 'Min Position Unauthorized',
+                num_authorized AS 'Num Authorized',
+                num_results as 'Num Results',
+                null AS '% Unauthorized',
+                null AS 'Avg Age Unauthorized (days)',                
+                min_unauthorized_position - min_authorized_position AS 'Position Gap',
+                traffic_share as 'Traffic Share',
+                unauthorized_traffic_share  AS 'Unauthorized Traffic Share',
+                authorized_traffic_share  AS 'Authorized Traffic Share',
+                used_historical_traffic_data as 'Used Historical Data'                
+from result_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF({0} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({0} - 0<= 0, 52 + ({0}- 0), {0}- 0) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF({0} - 0<= 0, {7} - 1, {7}), 1), INTERVAL IF({0} - 0<= 0, 52 + ({0}- 0), {0}- 0) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {0} WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE({7}, 1), INTERVAL {0} WEEK)) -5 DAY)
+and  page_numbers is null {8} {9}
+group by keyword_template,search_date_week_of_year
+having sum(num_unauthorized)>0
+order by search_date_week_of_year desc,sum(num_unauthorized) desc,keyword_template asc limit 25
+)

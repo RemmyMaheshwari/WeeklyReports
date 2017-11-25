@@ -1,0 +1,1 @@
+select Week('2017-07-02') as Week, count(*) from scrubmtd_approval_marketly_production.infringements where notice_id = 0 and search_date <  DATE_SUB(current_timestamp, INTERVAL 1 DAY);

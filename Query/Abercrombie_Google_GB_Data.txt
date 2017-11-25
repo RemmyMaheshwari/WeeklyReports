@@ -1,0 +1,25 @@
+SELECT R.portal AS 'Portal', 
+		R.region AS 'User Region', 
+		R.search_date AS 'Search Date', 
+		R.search_date_year AS 'Year',
+		R.search_date_week_of_year AS 'Week Of Year', 
+		R.keyword AS 'Keyword', 
+		R.page_number AS 'Page Number',
+		IF(SUM(CASE WHEN (R.classification = 'U') THEN 1 ELSE 0 END) > 0, "Dirty", "Clean") AS 'Status',
+		COUNT(CASE WHEN R.classification = 'A' THEN R.id ELSE null END) AS 'Num Authorized',
+		COUNT(CASE WHEN (R.classification = 'U') THEN R.id ELSE null END) AS 'Num Unauthorized',
+		COUNT(R.id) as 'Num Results',
+		COUNT(CASE WHEN (R.classification = 'U') THEN R.id ELSE null END) / COUNT(R.id) AS '% Unauthorized',
+		null AS 'Avg Age Unauthorized (days)',
+		R.keyword AS 'Keyword Template',
+		SUM(R.est_daily_traffic_position) as 'Traffic Share',
+		SUM(CASE WHEN R.classification = 'U' THEN R.est_daily_traffic_position ELSE 0 END) AS 'Unauthorized Traffic Share',
+		SUM(CASE WHEN R.classification = 'A' THEN R.est_daily_traffic_position ELSE 0 END) AS 'Authorized Traffic Share',
+		IF(SUM(CASE WHEN R.used_historical_traffic_data THEN 1 ELSE 0 END) > 0, true, false) as 'Used Historical Data'
+FROM search_results R
+WHERE (IF(43 - 7 <= 0, (R.search_date_week_of_year > 51 + 43 - 7 
+AND R.search_date >= '2016-01-03') 
+OR (R.search_date_week_of_year<=43 AND R.search_date_year >= 2017),
+ R.search_date_week_of_year >= 43 - 7 AND (R.search_date_week_of_year<=43 AND R.search_date_year >= 2017))) 
+AND R.page_number <=3 AND R.portal = 'Google' and R.region = 'GB'
+GROUP BY R.portal, R.region, R.search_date, R.keyword_hash, R.page_number limit 599999;

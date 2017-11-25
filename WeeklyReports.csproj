@@ -1,0 +1,268 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{69C381D3-1F2F-4BB0-979C-0EAD21632BFE}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>WeeklyReports</RootNamespace>
+    <AssemblyName>WeeklyReports</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus">
+      <HintPath>..\..\..\..\..\..\..\Marketly\git\core\EPPlus\bin\Debug\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\..\..\..\..\..\..\Marketly\git\core\log4net\dll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data">
+      <HintPath>D:\Vijay\ScrubMFoxApprovalReport\bin\Debug\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NDesk.Options">
+      <HintPath>..\..\..\..\..\..\..\Marketly\git\core\NDesk\NDesk.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryGeneration.cs" />
+    <Compile Include="ReportData.cs" />
+    <Compile Include="Settings.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Query\aber.bat" />
+    <None Include="Query\cbs.bat" />
+    <None Include="Query\disney.bat" />
+    <None Include="Query\disney_max week.bat" />
+    <None Include="Query\fox.bat" />
+    <None Include="Query\hbo.bat" />
+    <None Include="Query\kaplan.bat" />
+    <None Include="Query\lennox.bat" />
+    <None Include="Query\linkedin.bat" />
+    <None Include="Query\paramount.bat" />
+    <None Include="Query\Pearson.bat" />
+    <None Include="Query\run.bat" />
+    <None Include="Query\saavn.bat" />
+    <None Include="Query\sonar.bat" />
+    <None Include="Query\sony.bat" />
+    <None Include="Query\stx.bat" />
+    <None Include="Query\tta_heatmap.bat" />
+    <None Include="Query\univision.bat" />
+    <None Include="Query\viacom.bat" />
+    <None Include="Query\wbm.bat" />
+    <None Include="Query\wbm_max_week.bat" />
+    <None Include="Template\Kaplan_ScrubM_Week.xlsx" />
+    <None Include="Template\ScrubM_Bing_BR_Paramount_ExecutiveSummary.xlsx" />
+    <None Include="Template\ScrubM_Bing_GB_Paramount_ExecutiveSummary.xlsx" />
+    <None Include="Template\ScrubM_Bing_US_Paramount_ExecutiveSummary.xlsx" />
+    <None Include="Template\ScrubM_Google_BR_Paramount_ExecutiveSummary.xlsx" />
+    <None Include="Template\ScrubM_Google_GB_Paramount_ExecutiveSummary.xlsx" />
+    <None Include="Template\ScrubM_Google_US_Paramount_ExecutiveSummary.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Query\Abercrombie_Bing_DE_Actions.txt" />
+    <Content Include="Query\Abercrombie_Bing_DE_Data.txt" />
+    <Content Include="Query\Abercrombie_Bing_DE_Positions.txt" />
+    <Content Include="Query\Abercrombie_Bing_DE_Websites.txt" />
+    <Content Include="Query\Abercrombie_Bing_FR_Actions.txt" />
+    <Content Include="Query\Abercrombie_Bing_FR_Data.txt" />
+    <Content Include="Query\Abercrombie_Bing_FR_Positions.txt" />
+    <Content Include="Query\Abercrombie_Bing_FR_Websites.txt" />
+    <Content Include="Query\Abercrombie_Bing_GB_Actions.txt" />
+    <Content Include="Query\Abercrombie_Bing_GB_Data.txt" />
+    <Content Include="Query\Abercrombie_Bing_GB_Positions.txt" />
+    <Content Include="Query\Abercrombie_Bing_GB_Websites.txt" />
+    <Content Include="Query\Abercrombie_Bing_US_Actions.txt" />
+    <Content Include="Query\Abercrombie_Bing_US_Data.txt" />
+    <Content Include="Query\Abercrombie_Bing_US_Positions.txt" />
+    <Content Include="Query\Abercrombie_Bing_US_Websites.txt" />
+    <Content Include="Query\Abercrombie_Google_DE_Actions.txt" />
+    <Content Include="Query\Abercrombie_Google_DE_Data.txt" />
+    <Content Include="Query\Abercrombie_Google_DE_Positions.txt" />
+    <Content Include="Query\Abercrombie_Google_DE_Websites.txt" />
+    <Content Include="Query\Abercrombie_Google_FR_Actions.txt" />
+    <Content Include="Query\Abercrombie_Google_FR_Data.txt" />
+    <Content Include="Query\Abercrombie_Google_FR_Positions.txt" />
+    <Content Include="Query\Abercrombie_Google_FR_Websites.txt" />
+    <Content Include="Query\Abercrombie_Google_GB_Actions.txt" />
+    <Content Include="Query\Abercrombie_Google_GB_Data.txt" />
+    <Content Include="Query\Abercrombie_Google_GB_Positions.txt" />
+    <Content Include="Query\Abercrombie_Google_GB_Websites.txt" />
+    <Content Include="Query\Abercrombie_Google_US_Actions.txt" />
+    <Content Include="Query\Abercrombie_Google_US_Data.txt" />
+    <Content Include="Query\Abercrombie_Google_US_Positions.txt" />
+    <Content Include="Query\Abercrombie_Google_US_Websites.txt" />
+    <Content Include="Query\CBS_Bing_Actions.txt" />
+    <Content Include="Query\CBS_Bing_Data.txt" />
+    <Content Include="Query\CBS_Bing_Websites.txt" />
+    <Content Include="Query\CBS_Google_Actions.txt" />
+    <Content Include="Query\CBS_Google_Data.txt" />
+    <Content Include="Query\CBS_Google_Websites.txt" />
+    <Content Include="Query\CBS_Yahoo_Actions.txt" />
+    <Content Include="Query\CBS_Yahoo_Data.txt" />
+    <Content Include="Query\CBS_Yahoo_Websites.txt" />
+    <Content Include="Query\Disney_Bing_US_Actions.txt" />
+    <Content Include="Query\Disney_Bing_US_Data.txt" />
+    <Content Include="Query\Disney_Bing_US_Websites.txt" />
+    <Content Include="Query\Disney_Google_Data.txt" />
+    <Content Include="Query\Disney_Google_US_Actions.txt" />
+    <Content Include="Query\Disney_Google_US_Data.txt" />
+    <Content Include="Query\Disney_Google_US_Websites.txt" />
+    <Content Include="Query\Disney_Google_Websites.txt" />
+    <Content Include="Query\disney_max_week.txt" />
+    <Content Include="Query\Fox_Bing_US_Actions.txt" />
+    <Content Include="Query\Fox_Bing_US_Data.txt" />
+    <Content Include="Query\Fox_Bing_US_Websites.txt" />
+    <Content Include="Query\Fox_Google_US_Actions.txt" />
+    <Content Include="Query\Fox_Google_US_Data.txt" />
+    <Content Include="Query\Fox_Google_US_Websites.txt" />
+    <Content Include="Query\Fox_Russia_Yandex_US_Actions.txt" />
+    <Content Include="Query\Fox_Russia_Yandex_US_Data.txt" />
+    <Content Include="Query\Fox_Russia_Yandex_US_Websites.txt" />
+    <Content Include="Query\Fox_Yahoo_US_Actions.txt" />
+    <Content Include="Query\Fox_Yahoo_US_Data.txt" />
+    <Content Include="Query\Fox_Yahoo_US_Websites.txt" />
+    <Content Include="Query\HBO_Data.txt" />
+    <Content Include="Query\HBO_Websites.txt" />
+    <Content Include="Query\Kaplan_Actions.txt" />
+    <Content Include="Query\Kaplan_Data.txt" />
+    <Content Include="Query\Kaplan_Websites.txt" />
+    <Content Include="Query\Lennox_Google_Actions.txt" />
+    <Content Include="Query\Lennox_Google_Data.txt" />
+    <Content Include="Query\Lennox_Google_Websites.txt" />
+    <Content Include="Query\LinkedIn_Google_DE_Actions.txt" />
+    <Content Include="Query\LinkedIn_Google_DE_Data.txt" />
+    <Content Include="Query\LinkedIn_Google_DE_Websites.txt" />
+    <Content Include="Query\LinkedIn_Google_ES_Actions.txt" />
+    <Content Include="Query\LinkedIn_Google_ES_Data.txt" />
+    <Content Include="Query\LinkedIn_Google_ES_Websites.txt" />
+    <Content Include="Query\LinkedIn_Google_FR_Actions.txt" />
+    <Content Include="Query\LinkedIn_Google_FR_Data.txt" />
+    <Content Include="Query\LinkedIn_Google_FR_Websites.txt" />
+    <Content Include="Query\LinkedIn_Google_GB_Actions.txt" />
+    <Content Include="Query\LinkedIn_Google_GB_Data.txt" />
+    <Content Include="Query\LinkedIn_Google_GB_Websites.txt" />
+    <Content Include="Query\LinkedIn_Google_US_Actions.txt" />
+    <Content Include="Query\LinkedIn_Google_US_Data.txt" />
+    <Content Include="Query\LinkedIn_Google_US_Websites.txt" />
+    <Content Include="Query\LinkedIn_max_week.txt" />
+    <Content Include="Query\Paramount_Bing_BR_Actions.txt" />
+    <Content Include="Query\Paramount_Bing_BR_Data.txt" />
+    <Content Include="Query\Paramount_Bing_BR_Websites.txt" />
+    <Content Include="Query\Paramount_Bing_GB_Actions.txt" />
+    <Content Include="Query\Paramount_Bing_GB_Data.txt" />
+    <Content Include="Query\Paramount_Bing_GB_Websites.txt" />
+    <Content Include="Query\Paramount_Bing_US_Actions.txt" />
+    <Content Include="Query\Paramount_Bing_US_Data.txt" />
+    <Content Include="Query\Paramount_Bing_US_Websites.txt" />
+    <Content Include="Query\Paramount_Google_BR_Actions.txt" />
+    <Content Include="Query\Paramount_Google_BR_Data.txt" />
+    <Content Include="Query\Paramount_Google_BR_Websites.txt" />
+    <Content Include="Query\Paramount_Google_GB_Actions.txt" />
+    <Content Include="Query\Paramount_Google_GB_Data.txt" />
+    <Content Include="Query\Paramount_Google_GB_Websites.txt" />
+    <Content Include="Query\Paramount_Google_US_Actions.txt" />
+    <Content Include="Query\Paramount_Google_US_Data.txt" />
+    <Content Include="Query\Paramount_Google_US_Websites.txt" />
+    <Content Include="Query\Pearson_Google_Actions.txt" />
+    <Content Include="Query\Pearson_Google_Data.txt" />
+    <Content Include="Query\Pearson_Google_Websites.txt" />
+    <Content Include="Query\Saavn_Google_IN_Actions.txt" />
+    <Content Include="Query\Saavn_Google_IN_Data.txt" />
+    <Content Include="Query\Saavn_Google_IN_Websites.txt" />
+    <Content Include="Query\Sony_Google_BR_Actions.txt" />
+    <Content Include="Query\Sony_Google_BR_Data.txt" />
+    <Content Include="Query\Sony_Google_BR_Websites.txt" />
+    <Content Include="Query\Sony_Google_FR_Actions.txt" />
+    <Content Include="Query\Sony_Google_FR_Data.txt" />
+    <Content Include="Query\Sony_Google_FR_Websites.txt" />
+    <Content Include="Query\Sony_Google_MX_Actions.txt" />
+    <Content Include="Query\Sony_Google_MX_Data.txt" />
+    <Content Include="Query\Sony_Google_MX_Websites.txt" />
+    <Content Include="Query\Sony_Google_US_Actions.txt" />
+    <Content Include="Query\Sony_Google_US_Data.txt" />
+    <Content Include="Query\Sony_Google_US_Websites.txt" />
+    <Content Include="Query\Sony_Yandex_Actions.txt" />
+    <Content Include="Query\Sony_Yandex_Data.txt" />
+    <Content Include="Query\Sony_Yandex_Websites.txt" />
+    <Content Include="Query\STX_Bing_US_Actions.txt" />
+    <Content Include="Query\STX_Bing_US_Data.txt" />
+    <Content Include="Query\STX_Bing_US_Websites.txt" />
+    <Content Include="Query\STX_Google_US_Actions.txt" />
+    <Content Include="Query\STX_Google_US_Data.txt" />
+    <Content Include="Query\STX_Google_US_Websites.txt" />
+    <Content Include="Query\STX_Yahoo_US_Actions.txt" />
+    <Content Include="Query\STX_Yahoo_US_Data.txt" />
+    <Content Include="Query\STX_Yahoo_US_Websites.txt" />
+    <Content Include="Query\TTA_HEATMAP_FIRST_MAIN_QUERY.txt" />
+    <Content Include="Query\TTA_HeatMap_Fourth_Data.txt" />
+    <Content Include="Query\TTA_HEATMAP_SECOND_Perc_metrics.txt" />
+    <Content Include="Query\TTA_HEATMAP_third_Pending_review.txt" />
+    <Content Include="Query\Univision_Bing_US_Actions.txt" />
+    <Content Include="Query\Univision_Bing_US_Data.txt" />
+    <Content Include="Query\Univision_Bing_US_Websites.txt" />
+    <Content Include="Query\Univision_Google_US_Actions.txt" />
+    <Content Include="Query\Univision_Google_US_Data.txt" />
+    <Content Include="Query\Univision_Google_US_Websites.txt" />
+    <Content Include="Query\Univision_Yahoo_US_Actions.txt" />
+    <Content Include="Query\Univision_Yahoo_US_Data.txt" />
+    <Content Include="Query\Univision_Yahoo_US_Websites.txt" />
+    <Content Include="Query\Viacom_Bing_US_Actions.txt" />
+    <Content Include="Query\Viacom_Bing_US_Data.txt" />
+    <Content Include="Query\Viacom_Bing_US_Websites.txt" />
+    <Content Include="Query\Viacom_Google_US_Actions.txt" />
+    <Content Include="Query\Viacom_Google_US_Data.txt" />
+    <Content Include="Query\Viacom_Google_US_Websites.txt" />
+    <Content Include="Query\Viacom_Yahoo_US_Actions.txt" />
+    <Content Include="Query\Viacom_Yahoo_US_Data.txt" />
+    <Content Include="Query\Viacom_Yahoo_US_Websites.txt" />
+    <Content Include="Query\WBM_Bing_Actions.txt" />
+    <Content Include="Query\WBM_Bing_Data.txt" />
+    <Content Include="Query\WBM_Bing_Websites.txt" />
+    <Content Include="Query\WBM_Google_Actions.txt" />
+    <Content Include="Query\WBM_Google_Data.txt" />
+    <Content Include="Query\WBM_Google_Websites.txt" />
+    <Content Include="Query\wbm_max_data.txt" />
+    <Content Include="Top_25_Queries\top_25_keyword.txt" />
+    <Content Include="Top_25_Queries\top_25_keyword_template.txt" />
+    <Content Include="Top_25_Queries\top_25_new_website.txt" />
+    <Content Include="Top_25_Queries\top_25_website.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

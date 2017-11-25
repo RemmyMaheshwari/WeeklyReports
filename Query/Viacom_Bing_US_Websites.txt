@@ -1,0 +1,9 @@
+SELECT hostname, sum(num_unauthorized), first_unauthorized, first_unauthorized_week_of_year,
+search_date, search_date_year, search_date_week_of_year, first_unauthorized_year
+FROM website_metrics
+WHERE searched_at_date >= DATE_SUB(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(IF(43 - 7 <= 0, 2017 - 1, 2017), 1), INTERVAL IF(43 - 7 <= 0, 52 + (43 - 7), 43 - 7) WEEK)) +1 DAY)
+and searched_at_date <= DATE_SUB(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK), INTERVAL WEEKDAY(DATE_ADD(MAKEDATE(2017, 1), INTERVAL 43 WEEK)) -5 DAY)
+AND page_numbers is null AND  portal='Bing'
+AND num_unauthorized > 0
+group by hostname, searched_at_date
+limit 500000000;

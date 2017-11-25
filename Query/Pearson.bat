@@ -1,0 +1,3 @@
+ExportToCSV.exe -h marketly-store -u marketly-read -p 1bd3be01-fcb2-4701-be3c-1880103b8360 -db dash_pearson_production -if=Pearson_Google_Data.txt -ef=Pearson_Google_Data.csv
+ExportToCSV.exe -h marketly-store -u marketly-read -p 1bd3be01-fcb2-4701-be3c-1880103b8360 -db dash_pearson_production -if=Pearson_Google_Actions.txt -ef=Pearson_Google_Actions.csv
+ExportToCSV.exe -h marketly-store -u marketly-read -p 1bd3be01-fcb2-4701-be3c-1880103b8360 -db dash_pearson_production -if=Pearson_Google_Websites.txt -ef=Pearson_Google_Websites.csv
